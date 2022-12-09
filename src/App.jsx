@@ -1,24 +1,32 @@
 import "./App.css";
 import { useSelector, useDispatch } from "react-redux";
-import { counterAction } from "./store/counter";
+// import { loaderAction } from "./store/loader";
 import Header from "./components/header/Header";
 import Sidebar from "./components/sidebar/Sidebar";
 import Feed from "./components/feed/Feed";
+import Login from "./pages/Login";
+import Registration from "./pages/Registration";
+import Router from "./router/Router";
+import { Backdrop } from "@mui/material";
+import { CircularProgress } from "@mui/material";
 function App() {
-  const count = useSelector((state) => state.counter.counter);
-  const dispatch = useDispatch();
-
-  const setCounter = () => {
-    dispatch(counterAction.increament(2));
-  };
-
+  const isLoading = useSelector((state) => state.loader.isLoading);
   return (
     <div className="app">
-      <Header />
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={isLoading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+      <Router />
+      {/* <Login /> */}
+      {/* <Registration /> */}
+      {/* <Header />
       <div className="appBody">
         <Sidebar />
         <Feed />
-      </div>
+      </div> */}
     </div>
   );
 }
