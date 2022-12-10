@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import Style from "./Feed.module.css";
 import CreateIcon from "@mui/icons-material/Create";
 import InputOptions from "./InputOptions";
@@ -18,10 +17,15 @@ import {
   Timestamp,
 } from "firebase/firestore";
 
-const Feed = () => {
-  const user = useSelector((state) => state.user.user);
-  console.log("user data", user);
+const Feed = ({ name, photoURL }) => {
   const [post, setPost] = useState([]);
+  const description = [
+    "Solution analyst",
+    "Solution lead",
+    "Fullstack developer",
+    "Java developer",
+    "Frontend developer",
+  ];
   useEffect(() => {
     const q = query(collection(db, "post"), orderBy("created", "desc"));
     onSnapshot(q, (querySnapshot) => {
@@ -38,14 +42,14 @@ const Feed = () => {
     console.log("pp", event.target.search.value);
     try {
       await addDoc(collection(db, "post"), {
-        name: "Nitesh",
-        description: "Test1",
+        name: name,
+        description:
+          description[Math.floor(Math.random() * description.length)],
         message: event.target.search.value,
-        photoUrl: "",
+        photoUrl: photoURL || "",
         created: Timestamp.now(),
       });
       event.target.search.value = "";
-      // onClose();
     } catch (err) {
       alert(err);
     }

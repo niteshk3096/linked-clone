@@ -6,10 +6,10 @@ import ForumRoundedIcon from "@mui/icons-material/ForumRounded";
 import NotificationsRoundedIcon from "@mui/icons-material/NotificationsRounded";
 import Style from "./Header.module.css";
 import HeaderOptions from "./HeaderOption";
-const Header = () => {
+const Header = ({ name, photoURL }) => {
   const userDetails = {
-    image: "https://mui.com/static/images/avatar/1.jpg",
-    name: "Nitesh Kumar",
+    image: photoURL,
+    name: name,
   };
   return (
     <div className={Style.header}>
@@ -29,7 +29,7 @@ const Header = () => {
         <HeaderOptions Icon={WorkIcon} title="Jobs" />
         <HeaderOptions Icon={ForumRoundedIcon} title="Messaging" />
         <HeaderOptions Icon={NotificationsRoundedIcon} title="Notifications" />
-        <HeaderOptions user={userDetails} title="Me" />
+        <HeaderOptions user={userDetails} title={name} />
       </div>
     </div>
   );

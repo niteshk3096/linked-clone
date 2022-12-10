@@ -13,8 +13,22 @@ export default function Router() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/signup" element={<Registration />} />
+        <Route
+          path="/"
+          element={
+            <Unprotected>
+              <Login />
+            </Unprotected>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <Unprotected>
+              <Registration />
+            </Unprotected>
+          }
+        />
         <Route
           path="/feed"
           element={

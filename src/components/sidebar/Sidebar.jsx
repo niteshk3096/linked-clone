@@ -1,7 +1,8 @@
 import Style from "./Sidebar.module.css";
 import Avatar from "@mui/material/Avatar";
+import { deepOrange } from "@mui/material/colors";
 
-const Sidebar = () => {
+const Sidebar = ({ name, email, photoURL }) => {
   const recent = ["ReactJs", "React Native", "JS", "HTML", "CSS"];
   const recentItems = (item, index) => {
     return (
@@ -15,9 +16,17 @@ const Sidebar = () => {
     <div className={Style.sidebar}>
       <div className={Style.sidebarTop}>
         <img src="https://images.unsplash.com/photo-1670148570351-601dd7bebcd6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&h=200&q=80" />
-        <Avatar className={Style.sidebarAvatar} />
-        <h2>Nitesh Kumar</h2>
-        <h4>nitesh.k3096@gmail.com</h4>
+        {/* <Avatar /> */}
+        <Avatar
+          sx={{ bgcolor: deepOrange[500] }}
+          alt={name}
+          src={photoURL}
+          className={Style.sidebarAvatar}
+        >
+          {name.substring(0, 1).toUpperCase()}
+        </Avatar>
+        <h2>{name}</h2>
+        <h4>{email}</h4>
       </div>
       <div className={Style.sidebarStats}>
         <div className={Style.sidebarStat}>

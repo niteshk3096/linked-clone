@@ -83,11 +83,16 @@
   font-size: 1em;
   font-weight: 500;
 }
-.registerText > span {
+.joinButton {
   color: #004182;
   font-weight: 600;
   cursor: pointer;
 }
-.registerText > span:hover {
+.joinButton:hover {
   text-decoration: underline;
+}
+
+.feedPage {
+  display: flex;
+  width: 80%;
 }

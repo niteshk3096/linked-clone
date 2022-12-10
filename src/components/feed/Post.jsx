@@ -5,11 +5,19 @@ import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
+import { deepOrange } from "@mui/material/colors";
 const Post = ({ name, description, message, imageUrl }) => {
   return (
     <div className={Style.post}>
       <div className={Style.postHeader}>
-        <Avatar />
+        <Avatar
+          sx={{ bgcolor: deepOrange[500] }}
+          alt={name}
+          src={imageUrl}
+          className={Style.sidebarAvatar}
+        >
+          {name.substring(0, 1).toUpperCase()}
+        </Avatar>
         <div className={Style.postInfo}>
           <h2>{name}</h2>
           <p>{description}</p>

@@ -7,11 +7,7 @@ const HeaderOptions = ({ user, Icon, title }) => {
     <div className={Style.headerOption}>
       {Icon && <Icon className={Style.headerOptionIcon} />}
       {user && (
-        <Avatar
-          sx={{ bgcolor: deepOrange[500] }}
-          alt="Remy Sharp"
-          src={user.image}
-        >
+        <Avatar sx={{ bgcolor: deepOrange[500] }} alt={title} src={user.image}>
           {user.name.substring(0, 1).toUpperCase()}
         </Avatar>
       )}

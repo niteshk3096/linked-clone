@@ -13,20 +13,16 @@ function App() {
   const isLoading = useSelector((state) => state.loader.isLoading);
   return (
     <div className="app">
-      <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={isLoading}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
-      <Router />
-      {/* <Login /> */}
-      {/* <Registration /> */}
-      {/* <Header />
-      <div className="appBody">
-        <Sidebar />
-        <Feed />
-      </div> */}
+      {isLoading ? (
+        <Backdrop
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={isLoading}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      ) : (
+        <Router />
+      )}
     </div>
   );
 }
