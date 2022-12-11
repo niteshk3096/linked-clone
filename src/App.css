@@ -3,8 +3,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100vh;
 }
-.appBody {
-  display: flex;
-  width: 80%;
+.snackbarMessage::first-letter {
+  text-transform: capitalize;
 }

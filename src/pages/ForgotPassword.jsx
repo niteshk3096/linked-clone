@@ -2,45 +2,30 @@ import React from "react";
 import Style from "./page.module.css";
 import logo from "../assets/Logo.png";
 import { Card } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loaderAction } from "../store/loader";
 import { userAction } from "../store/user";
+import { Link, useNavigate } from "react-router-dom";
+import { sendPasswordResetEmail, signOut } from "firebase/auth";
 import { snackbarAction } from "../store/snackbar";
-import {
-  createUserWithEmailAndPassword,
-  signOut,
-  updateProfile,
-} from "firebase/auth";
-import { db, auth } from "../firebase";
-
-function Registration() {
+import { auth } from "../firebase";
+function ForgotPassword() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const registrationHandler = async (event) => {
+  const forgotPasswordHandler = async (event) => {
     event.preventDefault();
     try {
       dispatch(loaderAction.setLoading(true));
-      const response = await createUserWithEmailAndPassword(
-        auth,
-        event.target.email.value,
-        event.target.password.value
-      );
-      const user = response.user;
-      await updateProfile(user, {
-        displayName: event.target.fullName.value,
-        photoURL: event.target.profilePic.value,
-      });
-      dispatch(userAction.login(user));
-      navigate("/feed");
+      await sendPasswordResetEmail(auth, event.target.email.value);
       dispatch(loaderAction.setLoading(false));
       dispatch(
         snackbarAction.enableSnackbar({
           status: true,
-          message: "Account created successfully",
+          message: "Reset email sent successfully",
           severity: "success",
         })
       );
+      navigate("/");
     } catch (err) {
       dispatch(loaderAction.setLoading(false));
       dispatch(
@@ -59,22 +44,9 @@ function Registration() {
       </header>
       <main>
         <Card sx={{ minWidth: 325 }} className={Style.card}>
-          <h2>Sign up</h2>
+          <h2>Forgot Password</h2>
           <p>Stay updated on your professional world</p>
-          <form onSubmit={registrationHandler} className={Style.form}>
-            <label>Full Name</label>
-            <input
-              type="text"
-              name="fullName"
-              placeholder="John Smith"
-              required
-            />
-            <label>Profile Picture</label>
-            <input
-              type="text"
-              name="profilePic"
-              placeholder="Profile pic URL"
-            />
+          <form onSubmit={forgotPasswordHandler} className={Style.form}>
             <label>Email</label>
             <input
               type="email"
@@ -82,14 +54,7 @@ function Registration() {
               placeholder="abc@email.com"
               required
             />
-            <label>Password</label>
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              required
-            />
-            <button type="submit">Sign up</button>
+            <button type="submit">Reset password</button>
           </form>
         </Card>
         <p className={Style.registerText}>
@@ -103,4 +68,4 @@ function Registration() {
   );
 }
 
-export default Registration;
+export default ForgotPassword;

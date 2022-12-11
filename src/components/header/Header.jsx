@@ -6,6 +6,7 @@ import ForumRoundedIcon from "@mui/icons-material/ForumRounded";
 import NotificationsRoundedIcon from "@mui/icons-material/NotificationsRounded";
 import Style from "./Header.module.css";
 import HeaderOptions from "./HeaderOption";
+
 const Header = ({ name, photoURL }) => {
   const userDetails = {
     image: photoURL,

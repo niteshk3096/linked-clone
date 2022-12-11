@@ -1,0 +1,45 @@
+.widgets {
+  position: sticky;
+  top: 90px;
+  flex: 0.2;
+  background-color: white;
+  border-radius: 10px;
+  border: 1px solid lightgray;
+  height: fit-content;
+  padding-bottom: 10px;
+}
+.widgetHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+.widgetHeader > h2 {
+  font-size: 16px;
+  font-weight: 400;
+}
+.widgetArticle {
+  display: flex;
+  cursor: pointer;
+  padding: 2px 10px 2px 10px;
+}
+.widgetArticle:hover {
+  background-color: whitesmoke;
+}
+.widgetArticleLeft {
+  margin-right: 5px;
+  color: #0177b7;
+}
+.widgetArticleLeftIcon {
+  font-size: 15px;
+}
+.widgetArticleRight {
+  flex: 1;
+}
+.widgetArticleRight > h4 {
+  font-size: 14px;
+}
+.widgetArticleRight > p {
+  font-size: 12px;
+  color: grey;
+}

@@ -5,6 +5,7 @@ import Sidebar from "../components/sidebar/Sidebar";
 import Feed from "../components/feed/Feed";
 import { Link } from "react-router-dom";
 import Style from "./page.module.css";
+import Widgets from "../components/widgets/Widgets";
 
 function Hompage() {
   const user = useSelector((state) => state.user.user);
@@ -18,6 +19,7 @@ function Hompage() {
           photoURL={user.photoURL}
         />
         <Feed name={user.displayName} photoURL={user.photoURL} />
+        <Widgets />
       </div>
     </>
   );

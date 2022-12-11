@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import Style from "./Feed.module.css";
+import { useDispatch } from "react-redux";
+import { snackbarAction } from "../../store/snackbar";
 import CreateIcon from "@mui/icons-material/Create";
 import InputOptions from "./InputOptions";
 import ImageIcon from "@mui/icons-material/Image";
@@ -16,8 +18,10 @@ import {
   addDoc,
   Timestamp,
 } from "firebase/firestore";
+import FlipMove from "react-flip-move";
 
 const Feed = ({ name, photoURL }) => {
+  const dispatch = useDispatch();
   const [post, setPost] = useState([]);
   const description = [
     "Solution analyst",
@@ -39,7 +43,6 @@ const Feed = ({ name, photoURL }) => {
   }, []);
   const sendPost = async (event) => {
     event.preventDefault();
-    console.log("pp", event.target.search.value);
     try {
       await addDoc(collection(db, "post"), {
         name: name,
@@ -50,8 +53,21 @@ const Feed = ({ name, photoURL }) => {
         created: Timestamp.now(),
       });
       event.target.search.value = "";
+      dispatch(
+        snackbarAction.enableSnackbar({
+          status: true,
+          message: "Post added successfully",
+          severity: "success",
+        })
+      );
     } catch (err) {
-      alert(err);
+      dispatch(
+        snackbarAction.enableSnackbar({
+          status: true,
+          message: err.code.split("/")[1].replaceAll("-", " "),
+          severity: "error",
+        })
+      );
     }
   };
   return (
@@ -75,17 +91,19 @@ const Feed = ({ name, photoURL }) => {
           />
         </div>
       </div>
-      {post.map(({ id, data }) => {
-        return (
-          <Post
-            key={id}
-            name={data.name}
-            description={data.description}
-            message={data.message}
-            imageUrl={data.photoUrl}
-          />
-        );
-      })}
+      <FlipMove>
+        {post.map(({ id, data }) => {
+          return (
+            <Post
+              key={id}
+              name={data.name}
+              description={data.description}
+              message={data.message}
+              imageUrl={data.photoUrl}
+            />
+          );
+        })}
+      </FlipMove>
     </div>
   );
 };

@@ -5,19 +5,15 @@ import { Card } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { loaderAction } from "../store/loader";
 import { userAction } from "../store/user";
+import { snackbarAction } from "../store/snackbar";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  signInWithEmailAndPassword,
-  sendPasswordResetEmail,
-  signOut,
-} from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
 import { db, auth } from "../firebase";
 function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const loginHandler = async (event) => {
-    console.log("login");
     event.preventDefault();
     try {
       dispatch(loaderAction.setLoading(true));
@@ -26,13 +22,25 @@ function Login() {
         event.target.email.value,
         event.target.password.value
       );
-      console.log("login success", response.user);
       dispatch(userAction.login(response.user));
       navigate("/feed");
       dispatch(loaderAction.setLoading(false));
+      dispatch(
+        snackbarAction.enableSnackbar({
+          status: true,
+          message: "Logged in successfully",
+          severity: "success",
+        })
+      );
     } catch (err) {
       dispatch(loaderAction.setLoading(false));
-      console.log("err", err.message);
+      dispatch(
+        snackbarAction.enableSnackbar({
+          status: true,
+          message: err.code.split("/")[1].replaceAll("-", " "),
+          severity: "error",
+        })
+      );
     }
   };
   return (
@@ -59,14 +67,17 @@ function Login() {
               placeholder="Password"
               required
             />
-            <p>Forgot password?</p>
+            <p onClick={() => navigate("/reset-password")}>Forgot password?</p>
             <button type="submit">Sign in</button>
           </form>
         </Card>
         <p className={Style.registerText}>
           New to LinkedIn?{" "}
-          <span className={Style.joinButton}>
-            <Link to="signup">Join now</Link>
+          <span
+            className={Style.joinButton}
+            onClick={() => navigate("/signup")}
+          >
+            Join now
           </span>
         </p>
       </main>

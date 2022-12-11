@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import Avatar from "@mui/material/Avatar";
 import Style from "./Feed.module.css";
 import InputOptions from "./InputOptions";
@@ -6,9 +7,9 @@ import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutline
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import { deepOrange } from "@mui/material/colors";
-const Post = ({ name, description, message, imageUrl }) => {
+const Post = forwardRef(({ name, description, message, imageUrl }, ref) => {
   return (
-    <div className={Style.post}>
+    <div ref={ref} className={Style.post}>
       <div className={Style.postHeader}>
         <Avatar
           sx={{ bgcolor: deepOrange[500] }}
@@ -38,6 +39,6 @@ const Post = ({ name, description, message, imageUrl }) => {
       </div>
     </div>
   );
-};
+});
 
 export default Post;
